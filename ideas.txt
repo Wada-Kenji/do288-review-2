@@ -1,0 +1,72 @@
+DO180復習
+========
+
+[Git操作]
+git clone
+git add .
+git commit -m "message"
+git push
+
+[基本的な操作]
+
+* login
+* whoami
+* whoami -t
+* new-project
+* new-app
+* oc get pod -w
+* oc get pod -o wide
+* oc describe pod
+* oc describe svc
+* oc describe dc
+* oc expose svc
+* curl
+* delete project
+* logout
+* whoami -t
+
+[Source-to-Image]
+* ビルダーイメージストリーム確認
+* Gitプロジェクトのclone
+* new-app
+* oc get bc
+* oc get pod -w
+* oc logs -f
+* ImageStream確認
+* ソース変更
+* 再ビルド
+* ImageStream確認
+
+[DeploymentConfig]
+* replicas変更
+* pod削除→再起動
+
+[Template]
+* テンプレートを使ったアプリ起動
+* パラメータの追加
+* パラメータを環境変数として設定
+
+---
+
+[外部レジストリからのイメージプル]
+[外部レジストリからのアプリ作成]
+[外部レジストリからのイメージストリーム作成]
+[外部レジストリからのイメージストリーム確認]
+[外部レジストリからのS2Iアプリ作成]
+[内部レジストリからのイメージプル]
+[内部レジストリからのアプリ作成]
+
+[リソースへの操作]
+* oc scale --replicas
+* oc set env
+* oc create secret
+* oc set env --from secret
+* oc create configmap
+* oc set env --from configmap
+* oc set probe
+* oc set build-hook
+
+[トラブルシューティング]
+* 環境変数を指定していない
+* nodejs package.jsonのエラー
+
