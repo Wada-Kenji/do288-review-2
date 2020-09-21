@@ -4,7 +4,7 @@ source /usr/local/etc/ocp4.config
 
 oc login -u ${RHT_OCP4_DEV_USER} -p ${RHT_OCP4_DEV_PASSWORD} ${RHT_OCP4_MASTER_API}
 
-oc new-project app-test01
+oc new-project ${RHT_OCP4_DEV_USER}-test01
 
 podman login -u ${RHT_OCP4_QUAY_USER} quay.io
 
@@ -27,7 +27,7 @@ source /usr/local/etc/ocp4.config
 
 oc login -u ${RHT_OCP4_DEV_USER} -p ${RHT_OCP4_DEV_PASSWORD} ${RHT_OCP4_MASTER_API}
 
-oc new-project app-test02
+oc new-project ${RHT_OCP4_DEV_USER}-test02
 
 podman login -u ${RHT_OCP4_QUAY_USER} quay.io
 
@@ -50,12 +50,27 @@ oc get pod
 
 問題(3) 内部レジストリへのアクセス
 
-oc get route -n openshift-image-registry
+source /usr/local/etc/ocp4.config
 
+oc get route -n openshift-image-registry
 INTERNAL_REGISTRY=<registry hostname>
 
 TOKEN=$(oc whoami -t)
-QUAY_PASS=sakinyan2
+QUAY_PASS=xxxx
+
+sudo podman login -u ${RHT_OCP4_DEV_USER} -p $(oc whoami -t) ${INTERNAL_REGISTRY}
+sudo skopeo inspect docker://${INTERNAL_REGISTRY}/openshift/php
+
+
+問題(4) 内部レジストリへのイメージコピー
+
+source /usr/local/etc/ocp4.config
+
+oc get route -n openshift-image-registry
+INTERNAL_REGISTRY=<registry hostname>
+
+TOKEN=$(oc whoami -t)
+QUAY_PASS=xxxx
 
 sudo podman login -u ${RHT_OCP4_DEV_USER} -p $(oc whoami -t) ${INTERNAL_REGISTRY}
 
@@ -67,12 +82,42 @@ skopeo copy \
 --src-creds=${RHT_OCP4_QUAY_USER}:${QUAY_PASS} \
 --dest-creds=${RHT_OCP4_DEV_USER}:${TOKEN} \
 docker://quay.io/${RHT_OCP4_QUAY_USER}/ubi-sleep:1.0 \
-docker://${INTERNAL_REGISTRY}/${RHT_OCP4_DEV_USER}/ubi-sleep:1.0
+docker://${INTERNAL_REGISTRY}/${RHT_OCP4_DEV_USER}-test03/ubi-sleep:1.0
 
-sudo podman pull ${INTERNAL_REGISTRY}/${RHT_OCP4_DEV_USER}-common/ubi-info:1.0
+oc get is
+
+sudo podman pull ${INTERNAL_REGISTRY}/${RHT_OCP4_DEV_USER}/ubi-sleep:1.0
 
 
+問題(5) 外部レジストリからのS2Iアプリケーション実行
 
+source /usr/local/etc/ocp4.config
+
+oc login -u ${RHT_OCP4_DEV_USER} -p ${RHT_OCP4_DEV_PASSWORD} ${RHT_OCP4_MASTER_API}
+
+oc new-project ${RHT_OCP4_DEV_USER}-test05
+
+podman login -u ${RHT_OCP4_QUAY_USER} quay.io
+
+oc create secret generic quayio \
+--from-file .dockerconfigjson=${XDG_RUNTIME_DIR}/containers/auth.json \
+--type kubernetes.io/dockerconfigjson
+
+oc extract secret/quayio --to -
+
+oc import-image httpd-new:1.0 --from quay.io/${RHT_OCP4_QUAY_USER}/httpd-new:1.0 --confirm
+
+oc get is
+
+oc secret link builder quayio
+
+oc new-app --new httpd-new httpd-new:1.0~https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps --context-dir s2i-scripts
+
+oc get pod -w
+
+oc expose svc httpd-new
+
+curl <route URL>
 
 
 
