@@ -7,6 +7,7 @@ git add .
 git commit -m "message"
 git push
 
+
 [基本的な操作]
 
 * login
@@ -25,6 +26,23 @@ git push
 * logout
 * whoami -t
 
+[Podとは]
+* viでPodリソース作成
+* oc create -f pod.xml
+* oc logs
+* oc rsh
+* pod削除
+
+[Kubernetesの機能]
+* セルフヒーリング
+** podの削除と再起動
+* Podの動的なIPアドレス
+** 再起動後のIPアドレスの変化
+* rshによるコンテナ内部の調査
+* Pod間の通信
+** 環境変数
+** DNS
+
 [Source-to-Image]
 * ビルダーイメージストリーム確認
 * Gitプロジェクトのclone
@@ -39,7 +57,6 @@ git push
 
 [DeploymentConfig]
 * replicas変更
-* pod削除→再起動
 
 [Template]
 * テンプレートを使ったアプリ起動
