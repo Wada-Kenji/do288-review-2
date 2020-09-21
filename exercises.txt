@@ -1,0 +1,59 @@
+エンタープライズレジストリ演習
+==============================
+
+事前準備準備(1): sleep
+
+1. lab external-registry start
+2. podman login -u ${RHT_OCP4_QUAY_USER} quay.io
+3. skopeo copy \
+   oci:/home/student/DO288/labs/external-registry/ubi-sleep \
+   docker://quay.io/${RHT_OCP4_QUAY_USER}/ubi-sleep:1.0
+4. podman logout quay.io
+5. lab external-registry finish
+
+事前準備準備(1): httpd
+1. Dockerfileを作成して独自ビルダーイメージを作成してください
+　　親イメージ：rhscl/httpd-24-rhel7
+　　イメージ名：httpd-new
+　　イメージ：quay.io/${RHT_OCP4_QUAY_USER}/httpd-new:1.0
+
+-----
+
+問題(1) 外部レジストリへのアクセス
+1. 以下のアプリケーションを実行してください。
+　　プロジェクト: app-test01
+　　名前：sleep
+　　イメージ：quay.io/${RHT_OCP4_QUAY_USER}/ubi-sleep:1.0
+
+問題(2) 外部レジストリからのイメージストリーム作成
+1. イメージストリームを作成してください。
+　　プロジェクト: app-test02
+　　イメージ：quay.io/${RHT_OCP4_QUAY_USER}/ubi-sleep:1.0
+　　イメージストリーム：sleep
+2. 作成したイメージストリームを指定してアプリケーションを実行してください
+　　名前：sleep
+
+問題(3) 内部レジストリへのアクセス
+1. イメージストリームのイメージURLを調べてください
+　　イメージストリーム：sleep
+2. podmanを使ってイメージURLからコンテナを起動してください。
+   名前：sleep
+3. コンテナのログを表示してください。
+
+問題(4) 外部レジストリからのS2Iアプリケーション実行
+1. quay.ioに登録したイメージからイメージストリームを作成してください。
+　　プロジェクト：app-test04
+　　イメージURL：quay.io/${RHT_OCP4_QUAY_USER}/httpd-new:1.0
+　　イメージストリーム: httpd-new:1.0
+2. 作成したイメージストリームを指定してアプリケーションを作成してください。
+　　名前：httpd-new
+　　ソースURL: https://github.com/<yourname>/DO288-apps内のs2i-scripts
+
+問題(5) S2Iのカスタマイズ
+
+
+
+
+
+
+
