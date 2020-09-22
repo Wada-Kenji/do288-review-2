@@ -3,33 +3,47 @@ OpenShift Basics
 
 リソース確認 (1) Deployment
 
-$ oc create deployment hello-limit --image quay.io/redhattraining/hello-world-nginx:v1.0
-
-1. プロジェクト app-basic01 を作成してください。
+1. プロジェクト ${RHT_OCP4_QUAY_USER}--basic01 を作成してください。
 2. このコマンドを実行してください。
+　　$ oc create deployment hello-limit --image quay.io/redhattraining/hello-world-nginx:v1.0
 3. oc get all を実行して生成されたリソースを確認してください。
-4. app-basic01プロジェクトを削除してください。
+4. ${RHT_OCP4_QUAY_USER}-basic01プロジェクトを削除してください。
 
 
 リソース確認 (2) DeploymentConfig (イメージ指定)
 
-$ oc new-app --name hello-limit --docker-image quay.io/redhattraining/hello-world-nginx:v1.0 
-
-1. プロジェクト app-basic02 を作成してください。
+1. プロジェクト ${RHT_OCP4_QUAY_USER}--basic02 を作成してください。
 2. このコマンドを実行してください。
+　　$ oc new-app --name hello-limit --docker-image quay.io/redhattraining/hello-world-nginx:v1.0 
 3. oc get all を実行して生成されたリソースを確認してください。
-4. app-basic02プロジェクトを削除してください。
+4. ${RHT_OCP4_QUAY_USER}-basic02プロジェクトを削除してください。
 
 リソース確認 (3) DeploymentConfig (Source-to-Image)
 
-$ oc new-app --name nodejs -i nodejs~https://github.com/sclorg/nodejs-ex.git
-
-1. プロジェクト app-basic03 を作成してください。
+1. プロジェクト ${RHT_OCP4_QUAY_USER}--basic03 を作成してください。
 2. このコマンドを実行してください。
+　　$ oc new-app --name nodejs -i nodejs~https://github.com/sclorg/nodejs-ex.git
 3. oc get all を実行して生成されたリソースを確認してください。
-4. oc get podを実行して、nodejsのPodがRunningになるまで待ってください。
+4. oc get podを実行して、nodejs-1-deployのPodがRunningになるまで待ってください。
 5. oc get all を再度実行して最終的に生成されたリソースを確認してください。
-6. app-basic03プロジェクトを削除してください。
+6. ${RHT_OCP4_QUAY_USER}-basic03プロジェクトを削除してください。
+
+リソース確認 (4) テンプレート
+
+1. プロジェクト ${RHT_OCP4_QUAY_USER}--basic04 を作成してください。
+2. oc get template -n openshift | grep  mysql を実行してください。
+3. oc describe template mysql-ephemeral -n openshift を実行して
+　　指定可能なパラメータを調べてください。
+4. oc get template mysql-ephemeral -n openshift -o yaml を実行して
+　　テンプレートの内容を調べてください。
+5. oc get all -l template=mysql-ephemeral-template を実行して
+　　リストされたリソースを確認してください。
+6. 以下を実行してください。
+　　oc new-app --name mysql --template=mysql-ephemeral \
+   -p MYSQL_USER=mysql \
+   -p MYSQL_PASSWORD=mysql \
+   -p MYSQL_ROOT_PASSWORD=root 
+
 
 
 
