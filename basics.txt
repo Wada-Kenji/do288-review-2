@@ -1,0 +1,35 @@
+OpenShift Basics
+================
+
+リソース確認 (1) Deployment
+
+$ oc create deployment hello-limit --image quay.io/redhattraining/hello-world-nginx:v1.0
+
+1. プロジェクト app-basic01 を作成してください。
+2. このコマンドを実行してください。
+3. oc get all を実行して生成されたリソースを確認してください。
+4. app-basic01プロジェクトを削除してください。
+
+
+リソース確認 (2) DeploymentConfig (イメージ指定)
+
+$ oc new-app --name hello-limit --docker-image quay.io/redhattraining/hello-world-nginx:v1.0 
+
+1. プロジェクト app-basic02 を作成してください。
+2. このコマンドを実行してください。
+3. oc get all を実行して生成されたリソースを確認してください。
+4. app-basic02プロジェクトを削除してください。
+
+リソース確認 (3) DeploymentConfig (Source-to-Image)
+
+$ oc new-app --name nodejs -i nodejs~https://github.com/sclorg/nodejs-ex.git
+
+1. プロジェクト app-basic03 を作成してください。
+2. このコマンドを実行してください。
+3. oc get all を実行して生成されたリソースを確認してください。
+4. oc get podを実行して、nodejsのPodがRunningになるまで待ってください。
+5. oc get all を再度実行して最終的に生成されたリソースを確認してください。
+6. app-basic03プロジェクトを削除してください。
+
+
+
