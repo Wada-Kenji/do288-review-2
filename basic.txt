@@ -1,16 +1,28 @@
 OpenShift Basics
 ================
 
-リソース確認 (1) Deployment
+リソース確認 (1) リソース作成
 
-1. プロジェクト ${RHT_OCP4_QUAY_USER}--basic01 を作成してください。
-2. このコマンドを実行してください。
-　　$ oc create deployment hello-limit --image quay.io/redhattraining/hello-world-nginx:v1.0
+1. プロジェクト ${RHT_OCP4_QUAY_USER}--basic02 を作成してください。
+
+2. oc create -f pom.yamlを実行してPodを作成してください。
 3. oc get all を実行して生成されたリソースを確認してください。
-4. ${RHT_OCP4_QUAY_USER}-basic01プロジェクトを削除してください。
+4. oc delete pod hello-limitを実行してPodを削除してください。
+5. oc get all を実行して削除後のリソースを確認してください。
 
+6. oc create -f rc.yamlを実行ReplicationControllerを作成してください。
+7. oc get all を実行して生成されたリソースを確認してください。
+8. oc delete rc hello-limitを実行してReplicationControllerを削除してください。
+9. oc get all を実行して削除後のリソースを確認してください。
 
-リソース確認 (2) DeploymentConfig (イメージ指定)
+10. oc create -f dc.yamlを実行してDeploymentConfigを作成してください。
+11. oc get all を実行して生成されたリソースを確認してください。
+12. oc delete dc hello-limitを実行してDeploymentConfigを削除してください。
+13. oc get all を実行して削除後のリソースを確認してください。
+
+14. ${RHT_OCP4_QUAY_USER}-basic01プロジェクトを削除してください。
+
+リソース確認 (2) DeploymentConfig (new-app)
 
 1. プロジェクト ${RHT_OCP4_QUAY_USER}--basic02 を作成してください。
 2. このコマンドを実行してください。
