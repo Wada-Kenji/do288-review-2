@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-limit
+  labels:
+    application: hello-limit
+spec:
+  containers:
+  - name: hello-limit
+    image: quay.io/redhattraining/hello-world-nginx:v1.0
+    ports:
+    - containerPort: 8080
+      protocol: TCP
+
