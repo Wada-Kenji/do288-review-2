@@ -1,11 +1,12 @@
+エンタープライズレジストリ演習 (Solutions)
+====================================
+
 問題(1) 外部レジストリへのアクセス
+-------------------------------------------
 
 source /usr/local/etc/ocp4.config
-
 oc login -u ${RHT_OCP4_DEV_USER} -p ${RHT_OCP4_DEV_PASSWORD} ${RHT_OCP4_MASTER_API}
-
 oc new-project ${RHT_OCP4_DEV_USER}-test01
-
 podman login -u ${RHT_OCP4_QUAY_USER} quay.io
 
 oc create secret generic quayio \
@@ -15,20 +16,15 @@ oc create secret generic quayio \
 oc extract secret/quayio --to -
 
 oc secrets link default quayio --for=pull
-
 oc new-app --name sleep --docker-image quay.io/minamoto/ubi-sleep:1.0
-
 oc get pod
 
 
 問題(2) 外部レジストリからのイメージストリーム作成
-
+-------------------------------------------
 source /usr/local/etc/ocp4.config
-
 oc login -u ${RHT_OCP4_DEV_USER} -p ${RHT_OCP4_DEV_PASSWORD} ${RHT_OCP4_MASTER_API}
-
 oc new-project ${RHT_OCP4_DEV_USER}-test02
-
 podman login -u ${RHT_OCP4_QUAY_USER} quay.io
 
 oc create secret generic quayio \
@@ -38,20 +34,16 @@ oc create secret generic quayio \
 oc extract secret/quayio --to -
 
 oc import-image sleep --all --from quay.io/${RHT_OCP4_QUAY_USER}/ubi-sleep --confirm
-
 oc get is
 
 oc secret link default quayio --for=pull
-
 oc new-app -i sleep:1.0
-
 oc get pod
 
 
 問題(3) 内部レジストリへのアクセス
-
+-------------------------------------------
 source /usr/local/etc/ocp4.config
-
 oc get route -n openshift-image-registry
 INTERNAL_REGISTRY=<registry hostname>
 
@@ -63,7 +55,7 @@ sudo skopeo inspect docker://${INTERNAL_REGISTRY}/openshift/php
 
 
 問題(4) 内部レジストリへのイメージコピー
-
+-------------------------------------------
 source /usr/local/etc/ocp4.config
 
 oc get route -n openshift-image-registry
@@ -85,18 +77,14 @@ docker://quay.io/${RHT_OCP4_QUAY_USER}/ubi-sleep:1.0 \
 docker://${INTERNAL_REGISTRY}/${RHT_OCP4_DEV_USER}-test03/ubi-sleep:1.0
 
 oc get is
-
 sudo podman pull ${INTERNAL_REGISTRY}/${RHT_OCP4_DEV_USER}/ubi-sleep:1.0
 
 
 問題(5) 外部レジストリからのS2Iアプリケーション実行
-
+-------------------------------------------
 source /usr/local/etc/ocp4.config
-
 oc login -u ${RHT_OCP4_DEV_USER} -p ${RHT_OCP4_DEV_PASSWORD} ${RHT_OCP4_MASTER_API}
-
 oc new-project ${RHT_OCP4_DEV_USER}-test05
-
 podman login -u ${RHT_OCP4_QUAY_USER} quay.io
 
 oc create secret generic quayio \
@@ -106,15 +94,12 @@ oc create secret generic quayio \
 oc extract secret/quayio --to -
 
 oc import-image httpd-new:1.0 --from quay.io/${RHT_OCP4_QUAY_USER}/httpd-new:1.0 --confirm
-
 oc get is
-
 oc secret link builder quayio
 
 oc new-app --new httpd-new httpd-new:1.0~https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps --context-dir s2i-scripts
 
 oc get pod -w
-
 oc expose svc httpd-new
 
 curl <route URL>
