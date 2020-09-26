@@ -1,12 +1,12 @@
-OpenShift Basics (DeploymentConfig)
+OpenShift Basics (Source2Image)
 ============================
 
-(1) 環境変数追加
+トリガー確認 (1) start-build による再デプロイ
 
-(2) スケーリング
+1. oc new-app --name myapp を実行
+2. ImageStreamの内容を確認
+3. oc scale --replicas 10 dc/myapp を実行
+4. oc start-build を実行
+5. ImageStreamの内容を確認
+6. oc get rc で再ビルドの様子を確認
 
-(3) バージョンアップ
-
-1. 再ビルド実施してImageStreamの内容を更新
-2. 再デプロイ起動
-3. RCの様子を見る
