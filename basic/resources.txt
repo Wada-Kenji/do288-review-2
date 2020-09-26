@@ -1,26 +1,23 @@
-OpenShift Basics
-================
+OpenShift Basics (Resources)
+============================
 
 リソース確認 (1) リソース作成
 
 1. プロジェクト ${RHT_OCP4_QUAY_USER}--basic02 を作成してください。
 
-2. oc create -f pom.yamlを実行してPodを作成してください。
+2. oc create -f pom.yaml を実行してPodを作成してください。
 3. oc get all を実行して生成されたリソースを確認してください。
-4. oc delete pod hello-limitを実行してPodを削除してください。
-5. oc get all を実行して削除後のリソースを確認してください。
+4. oc delete pod hello-limit を実行してPodを削除してください。
 
-6. oc create -f rc.yamlを実行ReplicationControllerを作成してください。
-7. oc get all を実行して生成されたリソースを確認してください。
-8. oc delete rc hello-limitを実行してReplicationControllerを削除してください。
-9. oc get all を実行して削除後のリソースを確認してください。
+5. oc create -f rc.yaml を実行ReplicationControllerを作成してください。
+6. oc get all を実行して生成されたリソースを確認してください。
+7. oc delete rc hello-limit を実行してReplicationControllerを削除してください。
 
-10. oc create -f dc.yamlを実行してDeploymentConfigを作成してください。
-11. oc get all を実行して生成されたリソースを確認してください。
-12. oc delete dc hello-limitを実行してDeploymentConfigを削除してください。
-13. oc get all を実行して削除後のリソースを確認してください。
+8. oc create -f dc.yaml を実行してDeploymentConfigを作成してください。
+9. oc get all を実行して生成されたリソースを確認してください。
+10. oc delete dc hello-limit を実行してDeploymentConfigを削除してください。
 
-14. ${RHT_OCP4_QUAY_USER}-basic01プロジェクトを削除してください。
+11. ${RHT_OCP4_QUAY_USER}-basic01プロジェクトを削除してください。
 
 リソース確認 (2) DeploymentConfig (new-app)
 
@@ -55,6 +52,8 @@ OpenShift Basics
    -p MYSQL_USER=mysql \
    -p MYSQL_PASSWORD=mysql \
    -p MYSQL_ROOT_PASSWORD=root 
+   
+ 
 
 
 
