@@ -31,9 +31,9 @@ OpenShift Basics (Resources)
 
 1. プロジェクト ${RHT_OCP4_QUAY_USER}--basic03 を作成してください。
 2. このコマンドを実行してください。
-　　$ oc new-app --name nodejs nodejs~https://github.com/sclorg/nodejs-ex.git
+　　$ oc new-app --name myapp nodejs~https://github.com/sclorg/nodejs-ex.git
 3. oc get all を実行して生成されたリソースを確認してください。
-4. oc get podを実行して、nodejs-1-deployのPodがRunningになるまで待ってください。
+4. oc get podを実行して、myapp-1-deployのPodがRunningになるまで待ってください。
 5. oc get all を再度実行して最終的に生成されたリソースを確認してください。
 6. ${RHT_OCP4_QUAY_USER}-basic03プロジェクトを削除してください。
 
