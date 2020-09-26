@@ -30,7 +30,7 @@ OpenShift Basics (Resources)
 (2) DeploymentConfig (new-app)
 ----------------------------
 1. oc new-project ${RHT_OCP4_DEV_USER}-basic02
-2. このコマンドを実行してください。
+2. 次のコマンドを実行してください。
 　　$ oc new-app --name hello-limit --docker-image quay.io/redhattraining/hello-world-nginx:v1.0 
 3. oc get all を実行して生成されたリソースを確認してください。
 4. oc delete-project ${RHT_OCP4_DEV_USER}-basic02
@@ -39,7 +39,7 @@ OpenShift Basics (Resources)
 (3) DeploymentConfig (Source-to-Image)
 ----------------------------
 1. oc new-project ${RHT_OCP4_DEV_USER}-basic03
-2. このコマンドを実行してください。
+2. 次のコマンドを実行してください。
 　　$ oc new-app --name myapp nodejs~https://github.com/sclorg/nodejs-ex.git
 3. oc get all を実行して生成されたリソースを確認してください。
 4. oc get podを実行して、myapp-1-deployのPodがRunningになるまで待ってください。
@@ -56,7 +56,7 @@ OpenShift Basics (Resources)
 　　テンプレートの内容を調べてください。
 5. oc get all -l template=mysql-ephemeral-template を実行して
 　　リストされたリソースを確認してください。
-6. 以下を実行してください。
+6. 次のコマンドを実行してください。
 　　oc new-app --name mysql --template=mysql-ephemeral \
    -p MYSQL_USER=mysql \
    -p MYSQL_PASSWORD=mysql \
