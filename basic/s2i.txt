@@ -1,12 +1,24 @@
 OpenShift Basics (Source2Image)
 ============================
 
-トリガー確認 (1) start-build による再デプロイ
+(1) イメージストリームの更新
+-------------------------------------
+1. oc new-project ${RHT_OCP4_QUAY_USER}-s2i01
+2　oc new-app --name myapp nodejs~https://github.com/sclorg/nodejs-ex.git
+3  oc get pod を実行してmyapp PodがRunningになるのを待ってください。
+4. oc get is myapp -o yamlを実行してstatusにイメージURLがあることを確認してください。
+5. oc start-build によって新規イメージを作成します
+6  oc get pod を実行してmyapp PodがRunningになるのを待ってください。
+7. oc get is myapp -o yamlを実行してstatusにイメージURLの履歴があることを確認してください。
+8. oc delete-project ${RHT_OCP4_QUAY_USER}-s2i01
 
-1. oc new-app --name myapp を実行
-2. ImageStreamの内容を確認
-3. oc scale --replicas 10 dc/myapp を実行
-4. oc start-build を実行
-5. ImageStreamの内容を確認
-6. oc get rc で再ビルドの様子を確認
+(2) Rollingアップデート
+-------------------------------------
+1. oc new-project ${RHT_OCP4_QUAY_USER}-s2i02
+2　oc new-app --name myapp nodejs~https://github.com/sclorg/nodejs-ex.git
+3. oc scale --replicas 10 dc/myapp 
+4  oc get pod を実行して10個のmyappアプリケーションがRunningになるのを待ってください。
+7. oc start-build を実行することによって、新規イメージを作成します。
+8. watch oc get rc を実行してmyapp-1のPodが徐々に現象し、myapp-2のPodが増加する様子を観察してください。
+10. oc delete-project ${RHT_OCP4_QUAY_USER}-s2i02
 

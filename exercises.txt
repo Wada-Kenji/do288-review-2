@@ -18,13 +18,13 @@
 
 問題(1) 外部レジストリへのアクセス
 1. 以下のアプリケーションを実行してください。
-　　プロジェクト: ${RHT_OCP4_QUAY_USER}-test01
+　　プロジェクト: ${RHT_OCP4_DEV_USER}-test01
 　　名前：sleep
 　　イメージ：quay.io/${RHT_OCP4_QUAY_USER}/ubi-sleep:1.0
 
 問題(2) 外部レジストリからのイメージストリーム作成
 1. イメージストリームを作成してください。
-　　プロジェクト: ${RHT_OCP4_QUAY_USER}-test02
+　　プロジェクト: ${RHT_OCP4_DEV_USER}-test02
 　　イメージ：quay.io/${RHT_OCP4_QUAY_USER}/ubi-sleep:1.0
 　　イメージストリーム：sleep
 2. 作成したイメージストリームを指定してアプリケーションを実行してください
@@ -37,7 +37,7 @@
 
 問題(4) 内部レジストリへのイメージコピー
 1. イメージストリームを作成してください。
-　　プロジェクト: ${RHT_OCP4_QUAY_USER}-test04
+　　プロジェクト: ${RHT_OCP4_DEV_USER}-test04
 　　イメージ：quay.io/${RHT_OCP4_QUAY_USER}/ubi-sleep:1.0
 　　イメージストリーム：sleep
 1. イメージストリームsleepのイメージURLを調べてください
@@ -45,7 +45,7 @@
 
 問題(5) 外部レジストリからのS2Iアプリケーション実行
 1. quay.ioに登録したイメージからイメージストリームを作成してください。
-　　プロジェクト：${RHT_OCP4_QUAY_USER}-test05
+　　プロジェクト：${RHT_OCP4_DEV_USER}-test05
 　　イメージURL：quay.io/${RHT_OCP4_QUAY_USER}/httpd-new:1.0
 　　イメージストリーム: httpd-new:1.0
 2. 作成したイメージストリームを指定してアプリケーションを作成してください。
