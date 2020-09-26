@@ -1,0 +1,60 @@
+OpenShift Basics (Resources)
+============================
+
+リソース確認 (1) リソース作成
+
+1. プロジェクト ${RHT_OCP4_QUAY_USER}--basic02 を作成してください。
+
+2. oc create -f pom.yaml を実行してPodを作成してください。
+3. oc get all を実行して生成されたリソースを確認してください。
+4. oc delete pod hello-limit を実行してPodを削除してください。
+
+5. oc create -f rc.yaml を実行ReplicationControllerを作成してください。
+6. oc get all を実行して生成されたリソースを確認してください。
+7. oc delete rc hello-limit を実行してReplicationControllerを削除してください。
+
+8. oc create -f dc.yaml を実行してDeploymentConfigを作成してください。
+9. oc get all を実行して生成されたリソースを確認してください。
+10. oc delete dc hello-limit を実行してDeploymentConfigを削除してください。
+
+11. ${RHT_OCP4_QUAY_USER}-basic01プロジェクトを削除してください。
+
+リソース確認 (2) DeploymentConfig (new-app)
+
+1. プロジェクト ${RHT_OCP4_QUAY_USER}--basic02 を作成してください。
+2. このコマンドを実行してください。
+　　$ oc new-app --name hello-limit --docker-image quay.io/redhattraining/hello-world-nginx:v1.0 
+3. oc get all を実行して生成されたリソースを確認してください。
+4. ${RHT_OCP4_QUAY_USER}-basic02プロジェクトを削除してください。
+
+リソース確認 (3) DeploymentConfig (Source-to-Image)
+
+1. プロジェクト ${RHT_OCP4_QUAY_USER}--basic03 を作成してください。
+2. このコマンドを実行してください。
+　　$ oc new-app --name myapp -i nodejs~https://github.com/sclorg/nodejs-ex.git
+3. oc get all を実行して生成されたリソースを確認してください。
+4. oc get pod を実行して、myapp-1-deployのPodがRunningになるまで待ってください。
+5. oc get all を再度実行して最終的に生成されたリソースを確認してください。
+6. ${RHT_OCP4_QUAY_USER}-basic03プロジェクトを削除してください。
+
+リソース確認 (4) テンプレート
+
+1. プロジェクト ${RHT_OCP4_QUAY_USER}--basic04 を作成してください。
+2. oc get template -n openshift | grep  mysql を実行してください。
+3. oc describe template mysql-ephemeral -n openshift を実行して
+　　指定可能なパラメータを調べてください。
+4. oc get template mysql-ephemeral -n openshift -o yaml を実行して
+　　テンプレートの内容を調べてください。
+5. oc get all -l template=mysql-ephemeral-template を実行して
+　　リストされたリソースを確認してください。
+6. 以下を実行してください。
+　　oc new-app --name mysql --template=mysql-ephemeral \
+   -p MYSQL_USER=mysql \
+   -p MYSQL_PASSWORD=mysql \
+   -p MYSQL_ROOT_PASSWORD=root 
+   
+ 
+
+
+
+
