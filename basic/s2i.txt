@@ -18,7 +18,7 @@ OpenShift Basics (Source2Image)
 2　oc new-app --name myapp nodejs:10~https://github.com/sclorg/nodejs-ex.git
 3. oc scale --replicas 10 dc/myapp 
 4  oc get pod を実行して10個のmyappアプリケーションがRunningになるのを待ってください。
-5. oc edit is nodejs -o penshift を実行してビルダーイメージをnodejs: 12に変更してください。
+5. oc edit bc nodejs -o penshift を実行してビルダーイメージをnodejs: 12に変更してください。
 6. watch oc get rc を実行してmyapp-1のPodが徐々に現象し、myapp-2のPodが増加する様子を観察してください。
 7. oc delete-project ${RHT_OCP4_QUAY_USER}-s2i02
 
