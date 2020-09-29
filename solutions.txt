@@ -55,6 +55,8 @@ sudo skopeo inspect docker://${INTERNAL_REGISTRY}/openshift/php
 問題(4) 内部レジストリへのイメージコピー
 -------------------------------------------
 source /usr/local/etc/ocp4.config
+oc login -u ${RHT_OCP4_DEV_USER} -p ${RHT_OCP4_DEV_PASSWORD} ${RHT_OCP4_MASTER_API}
+oc new-project ${RHT_OCP4_DEV_USER}-test04
 
 oc get route -n openshift-image-registry
 INTERNAL_REGISTRY=<registry hostname>
@@ -66,16 +68,16 @@ sudo podman login -u ${RHT_OCP4_DEV_USER} -p $(oc whoami -t) ${INTERNAL_REGISTRY
 
 skopeo delete \
 --creds=${RHT_OCP4_DEV_USER}:${TOKEN} \
-docker://${INTERNAL_REGISTRY}/${RHT_OCP4_DEV_USER}/ubi-sleep:1.0
+docker://${INTERNAL_REGISTRY}/${RHT_OCP4_DEV_USER}-test04/ubi-sleep:1.0
 
 skopeo copy \
 --src-creds=${RHT_OCP4_QUAY_USER}:${QUAY_PASS} \
 --dest-creds=${RHT_OCP4_DEV_USER}:${TOKEN} \
 docker://quay.io/${RHT_OCP4_QUAY_USER}/ubi-sleep:1.0 \
-docker://${INTERNAL_REGISTRY}/${RHT_OCP4_DEV_USER}-test03/ubi-sleep:1.0
+docker://${INTERNAL_REGISTRY}/${RHT_OCP4_DEV_USER}-test04/ubi-sleep:1.0
 
 oc get is
-sudo podman pull ${INTERNAL_REGISTRY}/${RHT_OCP4_DEV_USER}/ubi-sleep:1.0
+sudo podman pull ${INTERNAL_REGISTRY}/${RHT_OCP4_DEV_USER}-test04/ubi-sleep:1.0
 
 
 問題(5) 外部レジストリからのS2Iアプリケーション実行
