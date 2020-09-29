@@ -47,7 +47,6 @@ oc get route -n openshift-image-registry
 INTERNAL_REGISTRY=<registry hostname>
 
 TOKEN=$(oc whoami -t)
-QUAY_PASS=xxxx
 
 sudo podman login -u ${RHT_OCP4_DEV_USER} -p $(oc whoami -t) ${INTERNAL_REGISTRY}
 sudo skopeo inspect docker://${INTERNAL_REGISTRY}/openshift/php
@@ -96,7 +95,7 @@ oc import-image httpd-new:1.0 --from quay.io/${RHT_OCP4_QUAY_USER}/httpd-new:1.0
 oc get is
 oc secret link builder quayio
 
-oc new-app --new httpd-new httpd-new:1.0~https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps --context-dir s2i-scripts
+oc new-app --name httpd-new httpd-new:1.0~https://github.com/${RHT_OCP4_GITHUB_USER}/DO288-apps --context-dir s2i-scripts
 
 oc get pod -w
 oc expose svc httpd-new
